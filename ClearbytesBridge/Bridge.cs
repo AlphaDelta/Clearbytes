@@ -108,7 +108,10 @@ namespace ClearbytesBridge
         Title,
         Text,
         Image,
+        ImageFile,
         Binary,
+        BinaryFile,
+        Table,
         None
     }
 
@@ -156,17 +159,32 @@ namespace ClearbytesBridge
             this.Parent = Parent;
         }
 
-        public SearchNode AddInformation(string Title, InformationType Type, object Data)
+        public SearchNode AddInformation(string Title, InformationType Type, object Data, bool forcewait = false)
         {
             if (Type == InformationType.Image) Bridge.ImageCache.Add((Image)Data);
 
             TreeNode tnode = null;
-            this.ParentModule.Parent.TreeView.BeginInvoke((Action)delegate { tnode = TreeNode.Nodes.Add(Title); });
+            if (forcewait)
+                this.ParentModule.Parent.TreeView.Invoke((Action)delegate { tnode = TreeNode.Nodes.Add(Title); });
+            else
+                this.ParentModule.Parent.TreeView.BeginInvoke((Action)delegate { tnode = TreeNode.Nodes.Add(Title); });
 
             SearchNode node = new SearchNode(tnode, Title, Type, Data, this.ParentModule, this);
             Nodes.Add(node);
 
             return node;
+        }
+    }
+
+    public class TableInfo
+    {
+        public readonly string[] Columns;
+        public readonly ListViewItem[] Rows;
+
+        public TableInfo(string[] Columns, ListViewItem[] Rows)
+        {
+            this.Columns = Columns;
+            this.Rows = Rows;
         }
     }
 }

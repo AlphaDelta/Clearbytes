@@ -15,5 +15,13 @@ namespace Clearbytes
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());
         }
+
+        public static string FormatUnixTimestamp(int timestamp, string format)
+        {
+            DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            dt = dt.AddSeconds(timestamp).ToLocalTime();
+
+            return dt.ToString(format);
+        }
     }
 }

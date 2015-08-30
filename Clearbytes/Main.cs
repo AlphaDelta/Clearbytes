@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using ClearbytesBridge;
 using System.Threading;
+using System.IO;
 
 namespace Clearbytes
 {
@@ -28,10 +29,18 @@ namespace Clearbytes
             panelText.Visible = false;
             panelImage.Visible = false;
             panelBinary.Visible = false;
+            panelTable.Visible = false;
             panelTitle.Dock = DockStyle.Fill;
             panelText.Dock = DockStyle.Fill;
             panelImage.Dock = DockStyle.Fill;
             panelBinary.Dock = DockStyle.Fill;
+            panelTable.Dock = DockStyle.Fill;
+
+            txtData.KeyDown += delegate(object sender, KeyEventArgs e)
+            {
+                if (e.Control && e.KeyCode == Keys.A)
+                    txtData.SelectAll();
+            };
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -49,8 +58,9 @@ namespace Clearbytes
             panelTitle.Visible = false;
             panelTitle.Visible = (type == InformationType.Title);
             panelText.Visible = (type == InformationType.Text);
-            panelImage.Visible = (type == InformationType.Image);
-            panelBinary.Visible = (type == InformationType.Binary);
+            panelImage.Visible = (type == InformationType.Image || type == InformationType.ImageFile);
+            panelBinary.Visible = (type == InformationType.Binary || type == InformationType.BinaryFile);
+            panelTable.Visible = (type == InformationType.Table);
         }
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
@@ -104,10 +114,21 @@ namespace Clearbytes
                         case InformationType.Image:
                             imgData.Image = (Image)n.Data;
                             break;
+                        case InformationType.ImageFile:
+                            imgData.ImageLocation = (string)n.Data;
+                            break;
                         case InformationType.Binary:
+                        case InformationType.BinaryFile:
                             #region Format binary data
                             //hexData.SetBytes((byte[])n.Data);
-                            byte[] data = (byte[])n.Data;
+                            byte[] data = null;
+                            if (n.Type == InformationType.BinaryFile)
+                            {
+                                if (!File.Exists((string)n.Data)) MessageBox.Show("This file no longer exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                else data = File.ReadAllBytes((string)n.Data);
+                            }
+                            else data = (byte[])n.Data;
+
                             if (data.Length > 0xFFFF) data = Encoding.ASCII.GetBytes("Data too large to display");
 
                             int rows = (int)Math.Ceiling((data.Length < 1 ? 10 : data.Length) / 16f);
@@ -144,6 +165,22 @@ namespace Clearbytes
                             }
                             txtBinaryASCII.Text = asciisb.ToString();
                             #endregion
+                            break;
+                        case InformationType.Table:
+                            TableInfo info = (TableInfo)n.Data;
+
+                            tableData.Clear();
+
+                            tableData.BeginUpdate();
+                            foreach (string s in info.Columns)
+                                tableData.Columns.Add(s);
+
+                            foreach (ListViewItem item in info.Rows)
+                                tableData.Items.Add(item);
+
+                            foreach (ColumnHeader ch in tableData.Columns)
+                                ch.Width = -1;
+                            tableData.EndUpdate();
                             break;
                     }
                     SwitchPanel(n.Type);
@@ -198,11 +235,11 @@ namespace Clearbytes
                     instance.SetParent(node);
                     instance.SetParentTreeView(treeView);
 
-                    try
-                    {
+                    //try
+                    //{
                         instance.Search();
-                    }
-                    catch { node.Text += " (ERROR)"; }
+                    //}
+                    //catch { node.Text += " (ERROR)"; }
                 }
                 searchrunning = false;
                 searchcancel = false;

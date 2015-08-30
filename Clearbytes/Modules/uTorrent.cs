@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Clearbytes.Modules
 {
-    [ClearbytesModuleAttributes("uTorrent", @"Retrieves uTorrent history and settings")]
+    [ClearbytesModuleAttributes("uTorrent", @"Retrieves uTorrent history and settings", false)]
     public class uTorrent : ClearbytesModule
     {
         static string UTORRENT_PATH = Program.AppData + @"\uTorrent\";
@@ -24,7 +24,7 @@ namespace Clearbytes.Modules
                 {
                     try
                     {
-                        hnode.AddInformation(Path.GetFileNameWithoutExtension(t), InformationType.Binary, File.ReadAllBytes(t));
+                        hnode.AddInformation(Path.GetFileNameWithoutExtension(t), InformationType.BinaryFile, t);
                     }
                     catch { }
                 }

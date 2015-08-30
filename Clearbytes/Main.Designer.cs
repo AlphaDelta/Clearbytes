@@ -48,6 +48,8 @@
             this.imgData = new System.Windows.Forms.PictureBox();
             this.panelText = new System.Windows.Forms.Panel();
             this.txtData = new System.Windows.Forms.TextBox();
+            this.panelTable = new System.Windows.Forms.Panel();
+            this.tableData = new System.Windows.Forms.ListView();
             this.treeView = new Clearbytes.TreeViewExtended();
             this.menu.SuspendLayout();
             this.split.Panel1.SuspendLayout();
@@ -58,6 +60,7 @@
             this.panelImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).BeginInit();
             this.panelText.SuspendLayout();
+            this.panelTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu
@@ -134,6 +137,7 @@
             // split.Panel2
             // 
             this.split.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.split.Panel2.Controls.Add(this.panelTable);
             this.split.Panel2.Controls.Add(this.panelBinary);
             this.split.Panel2.Controls.Add(this.panelTitle);
             this.split.Panel2.Controls.Add(this.panelImage);
@@ -151,7 +155,7 @@
             this.panelBinary.Controls.Add(this.txtBinaryPosition);
             this.panelBinary.Location = new System.Drawing.Point(215, 109);
             this.panelBinary.Name = "panelBinary";
-            this.panelBinary.Size = new System.Drawing.Size(190, 141);
+            this.panelBinary.Size = new System.Drawing.Size(200, 200);
             this.panelBinary.TabIndex = 2;
             // 
             // lblBinaryColumn
@@ -178,7 +182,7 @@
             this.txtBinaryData.ReadOnly = true;
             this.txtBinaryData.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtBinaryData.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryData.Size = new System.Drawing.Size(292, 125);
+            this.txtBinaryData.Size = new System.Drawing.Size(292, 184);
             this.txtBinaryData.TabIndex = 11;
             this.txtBinaryData.Text = "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00";
             // 
@@ -194,7 +198,7 @@
             this.txtBinaryASCII.Name = "txtBinaryASCII";
             this.txtBinaryASCII.ReadOnly = true;
             this.txtBinaryASCII.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryASCII.Size = new System.Drawing.Size(103, 125);
+            this.txtBinaryASCII.Size = new System.Drawing.Size(103, 184);
             this.txtBinaryASCII.TabIndex = 12;
             this.txtBinaryASCII.Text = "0000000000000000";
             this.txtBinaryASCII.WordWrap = false;
@@ -213,7 +217,7 @@
             this.txtBinaryPosition.Name = "txtBinaryPosition";
             this.txtBinaryPosition.ReadOnly = true;
             this.txtBinaryPosition.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryPosition.Size = new System.Drawing.Size(55, 125);
+            this.txtBinaryPosition.Size = new System.Drawing.Size(55, 184);
             this.txtBinaryPosition.TabIndex = 10;
             this.txtBinaryPosition.Text = "000000001111111122222222";
             // 
@@ -284,8 +288,30 @@
             this.txtData.Multiline = true;
             this.txtData.Name = "txtData";
             this.txtData.ReadOnly = true;
+            this.txtData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtData.Size = new System.Drawing.Size(90, 94);
             this.txtData.TabIndex = 1;
+            // 
+            // panelTable
+            // 
+            this.panelTable.Controls.Add(this.tableData);
+            this.panelTable.Location = new System.Drawing.Point(3, 215);
+            this.panelTable.Name = "panelTable";
+            this.panelTable.Size = new System.Drawing.Size(100, 100);
+            this.panelTable.TabIndex = 4;
+            // 
+            // tableData
+            // 
+            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableData.FullRowSelect = true;
+            this.tableData.GridLines = true;
+            this.tableData.Location = new System.Drawing.Point(0, 0);
+            this.tableData.Name = "tableData";
+            this.tableData.Size = new System.Drawing.Size(100, 100);
+            this.tableData.TabIndex = 0;
+            this.tableData.UseCompatibleStateImageBehavior = false;
+            this.tableData.View = System.Windows.Forms.View.Details;
             // 
             // treeView
             // 
@@ -326,6 +352,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).EndInit();
             this.panelText.ResumeLayout(false);
             this.panelText.PerformLayout();
+            this.panelTable.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -354,6 +381,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileStart;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
+        private System.Windows.Forms.Panel panelTable;
+        private System.Windows.Forms.ListView tableData;
     }
 }
 
