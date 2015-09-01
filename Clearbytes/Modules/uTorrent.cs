@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Clearbytes.Modules
 {
-    [ClearbytesModuleAttributes("uTorrent", @"Retrieves uTorrent history and settings", false)]
+    [ClearbytesModuleAttributes("uTorrent", @"Retrieves uTorrent history and settings", true)]
     public class uTorrent : ClearbytesModule
     {
         static string UTORRENT_PATH = Program.AppData + @"\uTorrent\";

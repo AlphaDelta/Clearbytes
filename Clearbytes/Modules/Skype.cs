@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Clearbytes.Modules
 {
-    [ClearbytesModuleAttributes("Skype", @"Retrieves data from the Skype user folders", false)]
+    [ClearbytesModuleAttributes("Skype", @"Retrieves data from the Skype user folders", true)]
     public class Skype : ClearbytesModule
     {
         static string SKYPE_PATH = Program.AppData + @"\Skype\";

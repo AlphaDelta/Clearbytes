@@ -9,7 +9,7 @@ namespace Clearbytes.Modules
 {
     [ClearbytesModuleAttributes("Thumbcache",
         @"Reads thumbnail data inside of the %localappdata%\Microsoft\Windows\Explorer\thumbcache_*.db files",
-        false)] //Huge memory-sink, enable only in releases and release-candidates
+        true)] //Huge memory-sink, enable only in releases and release-candidates
     public class Thumbcache : ClearbytesModule
     {
         const int

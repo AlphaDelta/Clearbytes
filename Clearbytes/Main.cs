@@ -189,6 +189,7 @@ namespace Clearbytes
         }
 
         volatile bool searchrunning = false, searchcancel = false;
+        public bool SearchCanceled { get { return searchcancel; } }
         private void menuFileStart_Click(object sender, EventArgs e)
         {
             if (searchrunning)
@@ -196,6 +197,12 @@ namespace Clearbytes
                 searchcancel = true;
                 return;
             }
+
+            SearchParams sp = new SearchParams();
+            sp.ShowDialog();
+            if (sp.canceled) { sp.Dispose(); return; }
+
+            SwitchPanel(InformationType.None);
 
             //Clear TreeView and release bitmap data
             treeView.Nodes.Clear();
@@ -210,7 +217,7 @@ namespace Clearbytes
             Async.RunAsync(delegate
             {
                 searchrunning = true;
-                Type[] classes = Assembly.GetExecutingAssembly().GetTypes();
+                /*Type[] classes = Assembly.GetExecutingAssembly().GetTypes();
 
                 foreach (Type c in classes)
                 {
@@ -240,11 +247,29 @@ namespace Clearbytes
                         instance.Search();
                     //}
                     //catch { node.Text += " (ERROR)"; }
+                }*/
+
+                for (int i = 0; i < sp.Modules.Count; i++)
+                {
+                    if (searchcancel) break;
+
+                    ClearbytesModule instance = (ClearbytesModule)Activator.CreateInstance(sp.Modules[i]);
+
+                    Modules.Add(instance);
+                    Attribs.Add(sp.Attribs[i]);
+
+                    TreeNode node = new TreeNode(sp.Attribs[i].Name);
+                    //this.Invoke((Async.Action)delegate { treeView.Nodes.Add(node); });
+                    instance.SetParent(node);
+                    instance.SetParentTreeView(treeView);
+
+                    instance.Search();
                 }
+
                 searchrunning = false;
                 searchcancel = false;
 
-                this.Invoke((Async.Action)delegate { menuFileStart.Text = "Start search"; });
+                this.Invoke((Async.Action)delegate { sp.Dispose(); menuFileStart.Text = "Start search"; });
             });
             #endregion
         }
