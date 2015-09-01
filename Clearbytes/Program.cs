@@ -16,7 +16,7 @@ namespace Clearbytes
             Application.Run(new Main());
         }
 
-        public static string FormatUnixTimestamp(int timestamp, string format)
+        public static string FormatUnixTimestamp(long timestamp, string format)
         {
             DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dt = dt.AddSeconds(timestamp).ToLocalTime();

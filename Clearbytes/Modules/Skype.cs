@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Clearbytes.Modules
 {
-    [ClearbytesModuleAttributes("Skype", @"Retrieves data from the Skype user folders", true)]
+    [ClearbytesModuleAttributes("Skype", @"Retrieves data from the Skype user folders", false)]
     public class Skype : ClearbytesModule
     {
         static string SKYPE_PATH = Program.AppData + @"\Skype\";
@@ -70,8 +70,8 @@ namespace Clearbytes.Modules
 
                         foreach (object[] obj in res.Rows)
                         {
-                            string starttime = (obj[2].GetType() == typeof(DBNull) || (long)obj[2] < 1 ? "" : Program.FormatUnixTimestamp((int)((long)obj[2]), "yyyy-MM-dd H:mm:ss"));
-                            string endtime = (obj[3].GetType() == typeof(DBNull) || (long)obj[3] < 1 ? "" : Program.FormatUnixTimestamp((int)((long)obj[3]), "yyyy-MM-dd H:mm:ss"));
+                            string starttime = (obj[2].GetType() == typeof(DBNull) || (long)obj[2] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[2], "yyyy-MM-dd H:mm:ss"));
+                            string endtime = (obj[3].GetType() == typeof(DBNull) || (long)obj[3] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[3], "yyyy-MM-dd H:mm:ss"));
                             items.Add(new ListViewItem(new string[] { obj[7].ToString(), obj[0].ToString(), obj[5].ToString(), obj[6].ToString(), obj[4].ToString(), starttime, endtime }));
                         }
 
