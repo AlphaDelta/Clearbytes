@@ -72,20 +72,34 @@ namespace Clearbytes.Modules
                     HistorySearch("WHERE url LIKE '%torproject.org/download%' OR url LIKE '%dist.torproject.org%' OR url LIKE '%hiddenwiki%' OR url LIKE '%hidden+wiki%' OR url LIKE '%hidden%20wiki%'", kvc, items, Color.Yellow);
                     
                     //Purple - Drugs/darknet
-                    HistorySearch("WHERE url LIKE '%/r/darknetmarkets' OR url LIKE '%/r/darknetmarkets/' OR url LIKE '%/r/darknetmarkets/new%' OR url LIKE '%/r/darknetmarkets/top%' " +
-                        "OR url LIKE '%/r/drugs' OR url LIKE '%/r/drugs/' OR url LIKE '%/r/drugs/new%' OR url LIKE '%/r/drugs/top%' " +
-                        "OR url LIKE '%/r/trees' OR url LIKE '%/r/trees/' OR url LIKE '%/r/trees/new%' OR url LIKE '%/r/trees/top%' " +
-                        "OR url LIKE '%/r/lsd' OR url LIKE '%/r/lsd/' " +
+                    HistorySearch("WHERE url LIKE '%reddit.com/r/darknetmarkets' OR url LIKE '%reddit.com/r/darknetmarkets/' OR url LIKE '%reddit.com/r/darknetmarkets/new%' OR url LIKE '%reddit.com/r/darknetmarkets/top%' " +
+                        "OR url LIKE '%reddit.com/r/drugs' OR url LIKE '%reddit.com/r/drugs/' OR url LIKE '%reddit.com/r/drugs/new%' OR url LIKE '%reddit.com/r/drugs/top%' " +
+                        "OR url LIKE '%reddit.com/r/trees' OR url LIKE '%reddit.com/r/trees/' OR url LIKE '%reddit.com/r/trees/new%' OR url LIKE '%reddit.com/r/trees/top%' " +
+                        "OR url LIKE '%reddit.com/r/lsd' OR url LIKE '%reddit.com/r/lsd/' " +
+                        "OR url LIKE '%reddit.com/r/psychonaut' OR url LIKE '%reddit.com/r/psychonaut/' " +
+                        "OR url LIKE '%reddit.com/r/opiates' OR url LIKE '%reddit.com/r/opiates/' " +
                         "OR url LIKE '%7chan.org/rx/' OR url LIKE '%7chan.org/rx' " +
                         "OR url LIKE '%420chan.org%' " +
                         "OR url LIKE '%dmt-nexus.me%' " +
+                        "OR url LIKE '%pillreports.net%' " +
                         "OR url LIKE '%erowid.org%'",
                         kvc, items, Color.MediumPurple);
 
                     //Cyan - Torrenting/Pirating
                     HistorySearch("WHERE url LIKE '%thepiratebay.%/' " +
                         "OR url LIKE '%kickass.%/' OR url LIKE '%//kat.%/' OR url LIKE '%//www.kat.%/' " +
-                        "OR url LIKE '%isohunt.%/'",
+                        "OR url LIKE '%isohunt.%/' " +
+                        "OR url LIKE '%rarbg.%/' " +
+                        "OR url LIKE '%extratorrent.cc/' " +
+                        "OR url LIKE '%yts.to/' " +
+                        "OR url LIKE '%1337x.to/' " +
+                        "OR url LIKE '%limetorrents.cc/' " +
+                        "OR url LIKE '%bittorrent.com%' " +
+                        "OR url LIKE '%utorrent.com%' " +
+                        "OR url LIKE '%deluge-torrent.org%' " +
+                        "OR url LIKE '%qbittorrent.org%' " +
+                        "OR url LIKE '%transmissionbt.com%' " +
+                        "OR url LIKE '%demonoid.pw/'",
                         kvc, items, Color.Cyan);
 
                     //Gray - Hacking/Cracking
