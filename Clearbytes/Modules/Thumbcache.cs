@@ -63,6 +63,8 @@ namespace Clearbytes.Modules
 
                 while (fs.Read(hbuffer, 0, 4) == 4 && WinAPI.memcmp(hbuffer, CMMM_HEADER, 4) == 0)
                 {
+                    if (Main.SearchCanceled) return;
+
                     if (fs.Read(hlbuffer, 0, 4) != 4) return; //Get the length of the header + bitmap length
                     int headerbitmaplen = BitConverter.ToInt32(hlbuffer, 0);
 

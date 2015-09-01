@@ -188,8 +188,8 @@ namespace Clearbytes
             }
         }
 
-        volatile bool searchrunning = false, searchcancel = false;
-        public bool SearchCanceled { get { return searchcancel; } }
+        static volatile bool searchrunning = false, searchcancel = false;
+        public static bool SearchCanceled { get { return searchcancel; } }
         private void menuFileStart_Click(object sender, EventArgs e)
         {
             if (searchrunning)

@@ -22,6 +22,7 @@ namespace Clearbytes.Modules
 
                 foreach (string t in history)
                 {
+                    if (Main.SearchCanceled) return;
                     try
                     {
                         hnode.AddInformation(Path.GetFileNameWithoutExtension(t), InformationType.BinaryFile, t);

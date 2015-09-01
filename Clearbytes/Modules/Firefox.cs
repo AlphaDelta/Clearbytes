@@ -34,6 +34,8 @@ namespace Clearbytes.Modules
 
                         foreach (object[] obj in res.Rows)
                         {
+                            if (Main.SearchCanceled) return;
+
                             string expiry = (obj[6].GetType() == typeof(DBNull) || (long)obj[6] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[6], "yyyy-MM-dd H:mm:ss"));
                             string lastaccessed = (obj[7].GetType() == typeof(DBNull) || (long)obj[7] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[7] / 1000000, "yyyy-MM-dd H:mm:ss"));
                             string creationtime = (obj[8].GetType() == typeof(DBNull) || (long)obj[8] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[8] / 1000000, "yyyy-MM-dd H:mm:ss"));
@@ -111,6 +113,8 @@ namespace Clearbytes.Modules
 
                         foreach (object[] obj in res.Rows)
                         {
+                            if (Main.SearchCanceled) return;
+
                             string created = (obj[3].GetType() == typeof(DBNull) || (long)obj[3] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[3] / 1000000, "yyyy-MM-dd H:mm:ss"));
                             string lastused = (obj[4].GetType() == typeof(DBNull) || (long)obj[4] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[4] / 1000000, "yyyy-MM-dd H:mm:ss"));
 
@@ -179,6 +183,8 @@ namespace Clearbytes.Modules
             {
                 foreach (object[] obj in res.Rows)
                 {
+                    if (Main.SearchCanceled) return;
+
                     string lastvisit = (obj[3].GetType() == typeof(DBNull) || (long)obj[3] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[3] / 1000000, "yyyy-MM-dd H:mm:ss"));
 
                     items.Add(new ListViewItem(

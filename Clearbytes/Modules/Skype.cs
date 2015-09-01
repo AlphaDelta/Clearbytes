@@ -41,6 +41,8 @@ namespace Clearbytes.Modules
                     string[] files = Directory.GetFiles(mediacache, "*.jpg", SearchOption.TopDirectoryOnly);
                     foreach (string file in files)
                     {
+                        if (Main.SearchCanceled) return;
+
                         Match m = Regex.Match(file, @"[\da-f]{32}");
                         if (!m.Success || m.Groups.Count < 1) continue;
                         mnode.AddInformation(m.Groups[0].Value, InformationType.ImageFile, file);
@@ -70,6 +72,8 @@ namespace Clearbytes.Modules
 
                         foreach (object[] obj in res.Rows)
                         {
+                            if (Main.SearchCanceled) return;
+
                             string starttime = (obj[2].GetType() == typeof(DBNull) || (long)obj[2] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[2], "yyyy-MM-dd H:mm:ss"));
                             string endtime = (obj[3].GetType() == typeof(DBNull) || (long)obj[3] < 1 ? "" : Program.FormatUnixTimestamp((long)obj[3], "yyyy-MM-dd H:mm:ss"));
                             items.Add(new ListViewItem(new string[] { obj[7].ToString(), obj[0].ToString(), obj[5].ToString(), obj[6].ToString(), obj[4].ToString(), starttime, endtime }));
