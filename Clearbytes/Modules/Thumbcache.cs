@@ -110,6 +110,8 @@ namespace Clearbytes.Modules
                         fs.Seek(endpadding, SeekOrigin.Current);
                 }
             }
+            catch (UnauthorizedAccessException) { this.AddInformation(rname + " (ACCESS DENIED)", InformationType.Title, new TitleInfo(rname, String.Format("Contains bitmap data for {0}x{0} thumbnails. Access was denied to this file.", name))); }
+            catch (FileNotFoundException) { }
             finally
             {
                 if (fs != null)
