@@ -70,6 +70,9 @@ namespace Clearbytes.Modules
 
                     //Yellow - TOR/TOR related
                     HistorySearch("WHERE url LIKE '%torproject.org/download%' OR url LIKE '%dist.torproject.org%' OR url LIKE '%hiddenwiki%' OR url LIKE '%hidden+wiki%' OR url LIKE '%hidden%20wiki%'", kvc, items, Color.Yellow);
+
+                    //Red - I2P/I2P related
+                    HistorySearch("WHERE url LIKE '%geti2p.net/%' OR url LIKE '%.i2p/%'", kvc, items, Color.Red);
                     
                     //Purple - Drugs/darknet
                     HistorySearch("WHERE url LIKE '%reddit.com/r/darknetmarkets' OR url LIKE '%reddit.com/r/darknetmarkets/' OR url LIKE '%reddit.com/r/darknetmarkets/new%' OR url LIKE '%reddit.com/r/darknetmarkets/top%' " +
