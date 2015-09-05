@@ -63,6 +63,7 @@
     <Compile Include="Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modules\Chrome.cs" />
     <Compile Include="Modules\Firefox.cs" />
     <Compile Include="Modules\Skype.cs" />
     <Compile Include="Modules\TestModule.cs" />

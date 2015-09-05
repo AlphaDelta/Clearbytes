@@ -14,6 +14,8 @@ namespace Clearbytes.Modules
         static string FIREFOX_PATH = Program.AppData + @"\Mozilla\Firefox\Profiles\";
         public override void Search()
         {
+            if (!Directory.Exists(FIREFOX_PATH)) return;
+
             string[] folders = Directory.GetDirectories(FIREFOX_PATH, "*", SearchOption.TopDirectoryOnly);
             foreach (string folder in folders)
             {
@@ -69,47 +71,19 @@ namespace Clearbytes.Modules
                     List<ListViewItem> items = new List<ListViewItem>();
 
                     //Yellow - TOR/TOR related
-                    HistorySearch("WHERE url LIKE '%torproject.org/download%' OR url LIKE '%dist.torproject.org%' OR url LIKE '%hiddenwiki%' OR url LIKE '%hidden+wiki%' OR url LIKE '%hidden%20wiki%'", kvc, items, Color.Yellow);
+                    HistorySearch(Program.SUSPICIOUS_TOR, kvc, items, Color.Yellow);
 
                     //Red - I2P/I2P related
-                    HistorySearch("WHERE url LIKE '%geti2p.net/%' OR url LIKE '%.i2p/%'", kvc, items, Color.Red);
+                    HistorySearch(Program.SUSPICIOUS_I2P, kvc, items, Color.Red);
                     
                     //Purple - Drugs/darknet
-                    HistorySearch("WHERE url LIKE '%reddit.com/r/darknetmarkets' OR url LIKE '%reddit.com/r/darknetmarkets/' OR url LIKE '%reddit.com/r/darknetmarkets/new%' OR url LIKE '%reddit.com/r/darknetmarkets/top%' " +
-                        "OR url LIKE '%reddit.com/r/drugs' OR url LIKE '%reddit.com/r/drugs/' OR url LIKE '%reddit.com/r/drugs/new%' OR url LIKE '%reddit.com/r/drugs/top%' " +
-                        "OR url LIKE '%reddit.com/r/trees' OR url LIKE '%reddit.com/r/trees/' OR url LIKE '%reddit.com/r/trees/new%' OR url LIKE '%reddit.com/r/trees/top%' " +
-                        "OR url LIKE '%reddit.com/r/lsd' OR url LIKE '%reddit.com/r/lsd/' " +
-                        "OR url LIKE '%reddit.com/r/psychonaut' OR url LIKE '%reddit.com/r/psychonaut/' " +
-                        "OR url LIKE '%reddit.com/r/opiates' OR url LIKE '%reddit.com/r/opiates/' " +
-                        "OR url LIKE '%7chan.org/rx/' OR url LIKE '%7chan.org/rx' " +
-                        "OR url LIKE '%420chan.org%' " +
-                        "OR url LIKE '%dmt-nexus.me%' " +
-                        "OR url LIKE '%pillreports.net%' " +
-                        "OR url LIKE '%erowid.org%'",
-                        kvc, items, Color.MediumPurple);
+                    HistorySearch(Program.SUSPICIOUS_DARKNET, kvc, items, Color.MediumPurple);
 
                     //Cyan - Torrenting/Pirating
-                    HistorySearch("WHERE url LIKE '%thepiratebay.%/' " +
-                        "OR url LIKE '%kickass.%/' OR url LIKE '%//kat.%/' OR url LIKE '%//www.kat.%/' " +
-                        "OR url LIKE '%isohunt.%/' " +
-                        "OR url LIKE '%rarbg.%/' " +
-                        "OR url LIKE '%extratorrent.cc/' " +
-                        "OR url LIKE '%yts.to/' " +
-                        "OR url LIKE '%1337x.to/' " +
-                        "OR url LIKE '%limetorrents.cc/' " +
-                        "OR url LIKE '%bittorrent.com%' " +
-                        "OR url LIKE '%utorrent.com%' " +
-                        "OR url LIKE '%deluge-torrent.org%' " +
-                        "OR url LIKE '%qbittorrent.org%' " +
-                        "OR url LIKE '%transmissionbt.com%' " +
-                        "OR url LIKE '%demonoid.pw/'",
-                        kvc, items, Color.Cyan);
+                    HistorySearch(Program.SUSPICIOUS_PIRATING, kvc, items, Color.Cyan);
 
                     //Gray - Hacking/Cracking
-                    HistorySearch("WHERE url LIKE '%hackforums.net/' " +
-                        "OR url LIKE '%crackingforum.com/'" +
-                        "OR url LIKE '%exploit-db.com/'",
-                        kvc, items, Color.Gray);
+                    HistorySearch(Program.SUSPICIOUS_HACKING, kvc, items, Color.Gray);
 
                     if (items.Count > 0)
                     {
@@ -193,7 +167,7 @@ namespace Clearbytes.Modules
             }
         }
 
-        public static void HistorySearch(string param, CSQLite kvc, List<ListViewItem> items, Color back)
+        static void HistorySearch(string param, CSQLite kvc, List<ListViewItem> items, Color back)
         {
             QueryResult res = kvc.QuickQuery("SELECT id,title,url,last_visit_date FROM moz_places " + param);
             if (res.Returned > 0)

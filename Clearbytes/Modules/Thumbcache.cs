@@ -34,6 +34,8 @@ namespace Clearbytes.Modules
 
         public override void Search()
         {
+            if (!Directory.Exists(loc)) return;
+
             foreach (string s in sizes)
                 ReadThumbcache(s);
             //foreach (string s in sizes)

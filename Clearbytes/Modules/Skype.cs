@@ -15,6 +15,8 @@ namespace Clearbytes.Modules
         static string SKYPE_PATH = Program.AppData + @"\Skype\";
         public override void Search()
         {
+            if (!Directory.Exists(SKYPE_PATH)) return;
+            
             string[] folders = Directory.GetDirectories(SKYPE_PATH, "*", SearchOption.TopDirectoryOnly);
             foreach (string folder in folders)
             {
