@@ -16,10 +16,14 @@ namespace Clearbytes.Modules
             CMMM_MNUM_SIZE = 0x18,
             CMMM_HEADER_SIZE = 0x58,
             BITMAP_NAME_LENGTH_OFFSET = 0x08,
-            BITMAP_NAME_OFFSET = 0x1C,
-            AVERAGE_HEADER_LENGTH = 4 + 4 + BITMAP_NAME_LENGTH_OFFSET + 4 + 4 + 4 + BITMAP_NAME_OFFSET;
+            BITMAP_NAME_OFFSET_WIN8 = 0x1C,
+            BITMAP_NAME_OFFSET_WIN7 = 0x14; //Windows 7 & Windows Vista?
 
-        static string loc = String.Format(@"{0}\Microsoft\Windows\Explorer\", Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData));
+        static int
+        BITMAP_NAME_OFFSET = (Environment.OSVersion.Version.Major >= 6 && Environment.OSVersion.Version.Minor >= 2 ? BITMAP_NAME_OFFSET_WIN8 : BITMAP_NAME_OFFSET_WIN7),
+        AVERAGE_HEADER_LENGTH = 4 + 4 + BITMAP_NAME_LENGTH_OFFSET + 4 + 4 + 4 + BITMAP_NAME_OFFSET;
+
+        static string loc = Program.LocalAppData + @"\Microsoft\Windows\Explorer\";
 
         string[] sizes = new string[]
         {
