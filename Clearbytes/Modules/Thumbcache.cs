@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Clearbytes.Modules
 {
-    [ClearbytesModuleAttributes("Thumbcache",
+    [ClearbytesModuleAttributes("Thumbcache (Memory intensive)",
         @"Reads thumbnail data inside of the %localappdata%\Microsoft\Windows\Explorer\thumbcache_*.db files",
         true)] //Huge memory-sink, enable only in releases and release-candidates
     public class Thumbcache : ClearbytesModule
@@ -117,7 +117,7 @@ namespace Clearbytes.Modules
                 }
             }
             catch (UnauthorizedAccessException) { this.AddInformation(rname + " (ACCESS DENIED)", InformationType.Title, new TitleInfo(rname, String.Format("Contains bitmap data for {0}x{0} thumbnails. Access was denied to this file.", name))); }
-            catch (FileNotFoundException) { }
+            catch (IOException) { }
             finally
             {
                 if (fs != null)

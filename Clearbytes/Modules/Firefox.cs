@@ -12,6 +12,14 @@ namespace Clearbytes.Modules
     public class Firefox : ClearbytesModule
     {
         static string FIREFOX_PATH = Program.AppData + @"\Mozilla\Firefox\Profiles\";
+        static string FIREFOX_PATH_LOCAL = Program.LocalAppData + @"\Mozilla\Firefox\Profiles\";
+        const int INT_256KB = 256 * 1024;
+
+        static byte[]
+            PNG_HEADER = { 0x89, 0x50, 0x4E },
+            JPG_HEADER = { 0xFF, 0xD8, 0xFF },
+            GIF_HEADER = { 0x47, 0x49, 0x46 };
+
         public override void Search()
         {
             if (!Directory.Exists(FIREFOX_PATH)) return;
@@ -164,6 +172,96 @@ namespace Clearbytes.Modules
                         node.AddInformation("Downloads (Pre Firefox 21)", InformationType.Table, tinfo);
                     }
                 }*/
+
+                /* Cache */
+                string localfolder = FIREFOX_PATH_LOCAL + profile;
+                string cachefolder = FIREFOX_PATH_LOCAL + profile + @"\cache2\entries";
+                if (Directory.Exists(localfolder) && Directory.Exists(cachefolder))
+                {
+                    string[] cachefiles = Directory.GetFiles(cachefolder);
+                    if (cachefiles.Length < 1) continue;
+
+                    SearchNode cachenode = node.AddInformation("Cache", InformationType.Title, new TitleInfo("Cache", String.Format("Contains data that Firefox has cached for the respective profile, such as images, videos, and style sheets.", profile)), true);
+
+                    byte[] intbuff = new byte[4];
+                    byte[] headerbuff = new byte[3];
+                    foreach (string cachefile in cachefiles)
+                    {
+                        if (Main.SearchCanceled) return;
+
+                        FileStream fcache = null;
+                        try
+                        {
+                            fcache = File.Open(cachefile, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                            if (fcache.Length < 16) continue; //Arbitrary minimum
+                            if (fcache.Read(headerbuff, 0, 3) != 3) continue;
+                            if (WinAPI.memcmp(headerbuff, PNG_HEADER, 3) != 0 &&
+                                WinAPI.memcmp(headerbuff, JPG_HEADER, 3) != 0 &&
+                                WinAPI.memcmp(headerbuff, GIF_HEADER, 3) != 0)
+                                continue;
+
+                            fcache.Seek(-4, SeekOrigin.End);
+                            if (fcache.Read(intbuff, 0, 4) != 4) continue;
+                            Program.SwapEndianness32(ref intbuff);
+                            int metaoffset = BitConverter.ToInt32(intbuff, 0);
+                            if (metaoffset < 16) continue;
+
+                            int hash = 4 + (int)Math.Ceiling((float)fcache.Length / (float)INT_256KB) * 2;
+
+                            fcache.Seek(metaoffset + hash, SeekOrigin.Begin);
+
+                            if (fcache.Read(intbuff, 0, 4) != 4) continue;
+                            Program.SwapEndianness32(ref intbuff);
+                            int metaversion = BitConverter.ToInt32(intbuff, 0);
+                            if (metaversion != 1) continue;
+
+                            fcache.Seek(0x14, SeekOrigin.Current);
+                            if (fcache.Read(intbuff, 0, 4) != 4) continue;
+                            Program.SwapEndianness32(ref intbuff);
+                            int metaurllen = BitConverter.ToInt32(intbuff, 0);
+                            if (metaurllen < 1) continue;
+
+                            byte[] asciibuff = new byte[metaurllen];
+                            if (fcache.Read(asciibuff, 0, metaurllen) != metaurllen) continue;
+                            string originurl = Encoding.ASCII.GetString(asciibuff);
+
+                            fcache.Seek(0, SeekOrigin.Begin);
+
+                            cachenode.AddInformation(originurl, InformationType.Delegate,
+                                (Action)delegate {
+                                    Bridge.Interface.SwitchPanel(InformationType.Image);
+
+                                    try
+                                    {
+                                        fcache = File.Open(cachefile, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                                        byte[] bitmapbuff = new byte[metaoffset];
+                                        if (fcache.Read(bitmapbuff, 0, metaoffset) != metaoffset) return;
+                                        Bitmap bt;
+                                        using (MemoryStream ms = new MemoryStream(bitmapbuff))
+                                            bt = new Bitmap(ms);
+
+                                        Bridge.Interface.SetImage(bt);
+                                    }
+                                    catch (IOException) { } //Generic
+                                    catch (UnauthorizedAccessException) { } //Lock error
+                                    finally
+                                    {
+                                        if(fcache != null)
+                                            fcache.Close();
+                                    }
+                                });
+                        }
+                        catch (IOException) { } //Generic
+                        catch (UnauthorizedAccessException) { } //Lock error
+                        finally
+                        {
+                            if(fcache != null)
+                                fcache.Close();
+                        }
+                    }
+                }
             }
         }
 

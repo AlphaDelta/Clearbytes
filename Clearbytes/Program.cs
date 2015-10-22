@@ -46,7 +46,11 @@ namespace Clearbytes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main());
+
+            Main main = new Main();
+            ClearbytesBridge.Bridge.SetInterface(new CClearbytes(main));
+
+            Application.Run(main);
         }
 
         public static string FormatUnixTimestamp(long timestamp, string format)
@@ -63,6 +67,20 @@ namespace Clearbytes
             dt = dt.AddSeconds(timestamp).ToLocalTime();
 
             return dt.ToString(format);
+        }
+
+        static byte[] temp32 = new byte[4];
+        public static void SwapEndianness32(ref byte[] input)
+        {
+            temp32[0] = input[3];
+            temp32[1] = input[2];
+            temp32[2] = input[1];
+            temp32[3] = input[0];
+
+            input[0] = temp32[0];
+            input[1] = temp32[1];
+            input[2] = temp32[2];
+            input[3] = temp32[3];
         }
     }
 }

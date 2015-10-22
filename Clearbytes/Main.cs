@@ -53,7 +53,7 @@ namespace Clearbytes
                 about.ShowDialog();
         }
 
-        void SwitchPanel(InformationType type)
+        public void SwitchPanel(InformationType type)
         {
             panelTitle.Visible = false;
             panelTitle.Visible = (type == InformationType.Title);
@@ -182,8 +182,12 @@ namespace Clearbytes
                                 ch.Width = -1;
                             tableData.EndUpdate();
                             break;
+                        case InformationType.Delegate:
+                            Action del = (Action)n.Data;
+                            del();
+                            break;
                     }
-                    SwitchPanel(n.Type);
+                    if (n.Type != InformationType.Delegate) SwitchPanel(n.Type);
                 }
             }
         }

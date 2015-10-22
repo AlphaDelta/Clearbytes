@@ -36,6 +36,9 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.split = new System.Windows.Forms.SplitContainer();
+            this.treeView = new Clearbytes.TreeViewExtended();
+            this.panelTable = new System.Windows.Forms.Panel();
+            this.tableData = new Clearbytes.ListViewExtended();
             this.panelBinary = new System.Windows.Forms.Panel();
             this.lblBinaryColumn = new System.Windows.Forms.Label();
             this.txtBinaryData = new System.Windows.Forms.RichTextBox();
@@ -48,19 +51,16 @@
             this.imgData = new System.Windows.Forms.PictureBox();
             this.panelText = new System.Windows.Forms.Panel();
             this.txtData = new System.Windows.Forms.TextBox();
-            this.panelTable = new System.Windows.Forms.Panel();
-            this.tableData = new ListViewExtended();
-            this.treeView = new Clearbytes.TreeViewExtended();
             this.menu.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
             this.split.SuspendLayout();
+            this.panelTable.SuspendLayout();
             this.panelBinary.SuspendLayout();
             this.panelTitle.SuspendLayout();
             this.panelImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).BeginInit();
             this.panelText.SuspendLayout();
-            this.panelTable.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu
@@ -146,6 +146,40 @@
             this.split.SplitterDistance = 212;
             this.split.TabIndex = 0;
             this.split.TabStop = false;
+            // 
+            // treeView
+            // 
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(210, 367);
+            this.treeView.TabIndex = 1;
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // panelTable
+            // 
+            this.panelTable.Controls.Add(this.tableData);
+            this.panelTable.Location = new System.Drawing.Point(3, 215);
+            this.panelTable.Name = "panelTable";
+            this.panelTable.Size = new System.Drawing.Size(100, 100);
+            this.panelTable.TabIndex = 4;
+            // 
+            // tableData
+            // 
+            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableData.FullRowSelect = true;
+            this.tableData.Location = new System.Drawing.Point(0, 0);
+            this.tableData.Name = "tableData";
+            this.tableData.Size = new System.Drawing.Size(100, 100);
+            this.tableData.TabIndex = 0;
+            this.tableData.UseCompatibleStateImageBehavior = false;
+            this.tableData.View = System.Windows.Forms.View.Details;
             // 
             // panelBinary
             // 
@@ -292,40 +326,6 @@
             this.txtData.Size = new System.Drawing.Size(90, 94);
             this.txtData.TabIndex = 1;
             // 
-            // panelTable
-            // 
-            this.panelTable.Controls.Add(this.tableData);
-            this.panelTable.Location = new System.Drawing.Point(3, 215);
-            this.panelTable.Name = "panelTable";
-            this.panelTable.Size = new System.Drawing.Size(100, 100);
-            this.panelTable.TabIndex = 4;
-            // 
-            // tableData
-            // 
-            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableData.FullRowSelect = true;
-            this.tableData.Location = new System.Drawing.Point(0, 0);
-            this.tableData.Name = "tableData";
-            this.tableData.Size = new System.Drawing.Size(100, 100);
-            this.tableData.TabIndex = 0;
-            this.tableData.UseCompatibleStateImageBehavior = false;
-            this.tableData.View = System.Windows.Forms.View.Details;
-            // 
-            // treeView
-            // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 367);
-            this.treeView.TabIndex = 1;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,6 +343,7 @@
             this.split.Panel1.ResumeLayout(false);
             this.split.Panel2.ResumeLayout(false);
             this.split.ResumeLayout(false);
+            this.panelTable.ResumeLayout(false);
             this.panelBinary.ResumeLayout(false);
             this.panelBinary.PerformLayout();
             this.panelTitle.ResumeLayout(false);
@@ -351,7 +352,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).EndInit();
             this.panelText.ResumeLayout(false);
             this.panelText.PerformLayout();
-            this.panelTable.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,7 +368,6 @@
         private System.Windows.Forms.Panel panelText;
         private System.Windows.Forms.TextBox txtData;
         private System.Windows.Forms.Panel panelImage;
-        private System.Windows.Forms.PictureBox imgData;
         private System.Windows.Forms.Panel panelBinary;
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblTitle;
@@ -382,6 +381,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
         private System.Windows.Forms.Panel panelTable;
         private ListViewExtended tableData;
+        public System.Windows.Forms.PictureBox imgData;
     }
 }
 

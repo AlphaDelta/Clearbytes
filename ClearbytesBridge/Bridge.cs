@@ -25,7 +25,9 @@ namespace ClearbytesBridge
 
     public interface IClearbytes
     {
+        void SwitchPanel(InformationType type);
 
+        void SetImage(Image img);
     }
 
     public class ClearbytesModuleAttributes : Attribute
@@ -41,7 +43,7 @@ namespace ClearbytesBridge
         }
     }
 
-    delegate void Action();
+    public delegate void Action();
     public class ClearbytesModule
     {
         bool ParentAdded = false;
@@ -112,6 +114,7 @@ namespace ClearbytesBridge
         Binary,
         BinaryFile,
         Table,
+        Delegate,
         None
     }
 
@@ -165,7 +168,9 @@ namespace ClearbytesBridge
 
             TreeNode tnode = null;
             if (forcewait)
-                this.ParentModule.Parent.TreeView.Invoke((Action)delegate { tnode = TreeNode.Nodes.Add(Title); });
+                this.ParentModule.Parent.TreeView.Invoke((Action)delegate {
+                    tnode = TreeNode.Nodes.Add(Title);
+                });
             else
                 this.ParentModule.Parent.TreeView.BeginInvoke((Action)delegate { tnode = TreeNode.Nodes.Add(Title); });
 
