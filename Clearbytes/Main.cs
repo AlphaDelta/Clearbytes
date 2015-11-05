@@ -217,7 +217,17 @@ namespace Clearbytes
             Attribs.Clear();
 
             menuFileStart.Text = "Cancel search";
+            this.Text = "Clearbytes - Searching";
+
+            ulong taskbarcount = (ulong)sp.Modules.Count;
+            if (WinAPI.ISABOVEVISTA)
+            {
+                WinAPI.Taskbar.SetProgressState(this.Handle, WinAPI.TaskbarStates.Normal);
+                WinAPI.Taskbar.SetProgressValue(this.Handle, 0, taskbarcount);
+            }
+
             #region Reflect internal modules
+            IntPtr mainhandle = this.Handle;
             Async.RunAsync(delegate
             {
                 searchrunning = true;
@@ -253,7 +263,8 @@ namespace Clearbytes
                     //catch { node.Text += " (ERROR)"; }
                 }*/
 
-                for (int i = 0; i < sp.Modules.Count; i++)
+                ulong progress = 1;
+                for (int i = 0; i < sp.Modules.Count; i++, progress++)
                 {
                     if (searchcancel) break;
 
@@ -268,12 +279,23 @@ namespace Clearbytes
                     instance.SetParentTreeView(treeView);
 
                     instance.Search();
+
+                    if(WinAPI.ISABOVEVISTA)
+                        WinAPI.Taskbar.SetProgressValue(mainhandle, progress, taskbarcount);
                 }
 
                 searchrunning = false;
                 searchcancel = false;
 
-                this.Invoke((Async.Action)delegate { sp.Dispose(); menuFileStart.Text = "Start search"; });
+                this.Invoke((Async.Action)delegate
+                {
+                    sp.Dispose();
+                    menuFileStart.Text = "Start search";
+                    this.Text = "Clearbytes";
+
+                    if (WinAPI.ISABOVEVISTA)
+                        WinAPI.Taskbar.SetProgressState(this.Handle, WinAPI.TaskbarStates.NoProgress);
+                });
             });
             #endregion
         }
