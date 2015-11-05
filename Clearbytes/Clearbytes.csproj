@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Async.cs" />
     <Compile Include="CClearbytes.cs" />
+    <Compile Include="HexView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ListViewExtended.cs">
       <SubType>Component</SubType>
     </Compile>

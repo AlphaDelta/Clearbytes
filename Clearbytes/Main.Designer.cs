@@ -36,14 +36,8 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.split = new System.Windows.Forms.SplitContainer();
-            this.treeView = new Clearbytes.TreeViewExtended();
             this.panelTable = new System.Windows.Forms.Panel();
-            this.tableData = new Clearbytes.ListViewExtended();
             this.panelBinary = new System.Windows.Forms.Panel();
-            this.lblBinaryColumn = new System.Windows.Forms.Label();
-            this.txtBinaryData = new System.Windows.Forms.RichTextBox();
-            this.txtBinaryASCII = new System.Windows.Forms.RichTextBox();
-            this.txtBinaryPosition = new System.Windows.Forms.RichTextBox();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblTitlecontent = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -51,6 +45,9 @@
             this.imgData = new System.Windows.Forms.PictureBox();
             this.panelText = new System.Windows.Forms.Panel();
             this.txtData = new System.Windows.Forms.TextBox();
+            this.treeView = new Clearbytes.TreeViewExtended();
+            this.tableData = new Clearbytes.ListViewExtended();
+            this.hexData = new Clearbytes.HexView();
             this.menu.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
@@ -70,7 +67,7 @@
             this.menuHelp});
             this.menu.Location = new System.Drawing.Point(0, 0);
             this.menu.Name = "menu";
-            this.menu.Size = new System.Drawing.Size(712, 24);
+            this.menu.Size = new System.Drawing.Size(863, 24);
             this.menu.TabIndex = 0;
             this.menu.Text = "menu";
             // 
@@ -142,24 +139,10 @@
             this.split.Panel2.Controls.Add(this.panelTitle);
             this.split.Panel2.Controls.Add(this.panelImage);
             this.split.Panel2.Controls.Add(this.panelText);
-            this.split.Size = new System.Drawing.Size(714, 369);
+            this.split.Size = new System.Drawing.Size(865, 379);
             this.split.SplitterDistance = 212;
             this.split.TabIndex = 0;
             this.split.TabStop = false;
-            // 
-            // treeView
-            // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 367);
-            this.treeView.TabIndex = 1;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // panelTable
             // 
@@ -169,91 +152,13 @@
             this.panelTable.Size = new System.Drawing.Size(100, 100);
             this.panelTable.TabIndex = 4;
             // 
-            // tableData
-            // 
-            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableData.FullRowSelect = true;
-            this.tableData.Location = new System.Drawing.Point(0, 0);
-            this.tableData.Name = "tableData";
-            this.tableData.Size = new System.Drawing.Size(100, 100);
-            this.tableData.TabIndex = 0;
-            this.tableData.UseCompatibleStateImageBehavior = false;
-            this.tableData.View = System.Windows.Forms.View.Details;
-            // 
             // panelBinary
             // 
-            this.panelBinary.Controls.Add(this.lblBinaryColumn);
-            this.panelBinary.Controls.Add(this.txtBinaryData);
-            this.panelBinary.Controls.Add(this.txtBinaryASCII);
-            this.panelBinary.Controls.Add(this.txtBinaryPosition);
+            this.panelBinary.Controls.Add(this.hexData);
             this.panelBinary.Location = new System.Drawing.Point(215, 109);
             this.panelBinary.Name = "panelBinary";
-            this.panelBinary.Size = new System.Drawing.Size(200, 200);
+            this.panelBinary.Size = new System.Drawing.Size(100, 100);
             this.panelBinary.TabIndex = 2;
-            // 
-            // lblBinaryColumn
-            // 
-            this.lblBinaryColumn.AutoSize = true;
-            this.lblBinaryColumn.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBinaryColumn.ForeColor = System.Drawing.Color.Blue;
-            this.lblBinaryColumn.Location = new System.Drawing.Point(60, 0);
-            this.lblBinaryColumn.Name = "lblBinaryColumn";
-            this.lblBinaryColumn.Size = new System.Drawing.Size(289, 13);
-            this.lblBinaryColumn.TabIndex = 13;
-            this.lblBinaryColumn.Text = "00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F";
-            // 
-            // txtBinaryData
-            // 
-            this.txtBinaryData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBinaryData.BackColor = System.Drawing.SystemColors.Window;
-            this.txtBinaryData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBinaryData.DetectUrls = false;
-            this.txtBinaryData.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBinaryData.Location = new System.Drawing.Point(61, 16);
-            this.txtBinaryData.Name = "txtBinaryData";
-            this.txtBinaryData.ReadOnly = true;
-            this.txtBinaryData.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.txtBinaryData.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryData.Size = new System.Drawing.Size(292, 184);
-            this.txtBinaryData.TabIndex = 11;
-            this.txtBinaryData.Text = "00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00";
-            // 
-            // txtBinaryASCII
-            // 
-            this.txtBinaryASCII.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBinaryASCII.BackColor = System.Drawing.SystemColors.Window;
-            this.txtBinaryASCII.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBinaryASCII.DetectUrls = false;
-            this.txtBinaryASCII.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBinaryASCII.Location = new System.Drawing.Point(353, 16);
-            this.txtBinaryASCII.Name = "txtBinaryASCII";
-            this.txtBinaryASCII.ReadOnly = true;
-            this.txtBinaryASCII.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryASCII.Size = new System.Drawing.Size(103, 184);
-            this.txtBinaryASCII.TabIndex = 12;
-            this.txtBinaryASCII.Text = "0000000000000000";
-            this.txtBinaryASCII.WordWrap = false;
-            // 
-            // txtBinaryPosition
-            // 
-            this.txtBinaryPosition.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBinaryPosition.BackColor = System.Drawing.SystemColors.Window;
-            this.txtBinaryPosition.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtBinaryPosition.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.txtBinaryPosition.DetectUrls = false;
-            this.txtBinaryPosition.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBinaryPosition.ForeColor = System.Drawing.Color.Blue;
-            this.txtBinaryPosition.Location = new System.Drawing.Point(6, 16);
-            this.txtBinaryPosition.Name = "txtBinaryPosition";
-            this.txtBinaryPosition.ReadOnly = true;
-            this.txtBinaryPosition.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.txtBinaryPosition.Size = new System.Drawing.Size(55, 184);
-            this.txtBinaryPosition.TabIndex = 10;
-            this.txtBinaryPosition.Text = "000000001111111122222222";
             // 
             // panelTitle
             // 
@@ -326,12 +231,47 @@
             this.txtData.Size = new System.Drawing.Size(90, 94);
             this.txtData.TabIndex = 1;
             // 
+            // treeView
+            // 
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(210, 377);
+            this.treeView.TabIndex = 1;
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // tableData
+            // 
+            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableData.FullRowSelect = true;
+            this.tableData.Location = new System.Drawing.Point(0, 0);
+            this.tableData.Name = "tableData";
+            this.tableData.Size = new System.Drawing.Size(100, 100);
+            this.tableData.TabIndex = 0;
+            this.tableData.UseCompatibleStateImageBehavior = false;
+            this.tableData.View = System.Windows.Forms.View.Details;
+            // 
+            // hexData
+            // 
+            this.hexData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hexData.Location = new System.Drawing.Point(0, 0);
+            this.hexData.Name = "hexData";
+            this.hexData.Size = new System.Drawing.Size(100, 100);
+            this.hexData.TabIndex = 0;
+            this.hexData.Text = "hexView1";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(712, 392);
+            this.ClientSize = new System.Drawing.Size(863, 402);
             this.Controls.Add(this.menu);
             this.Controls.Add(this.split);
             this.MainMenuStrip = this.menu;
@@ -345,7 +285,6 @@
             this.split.ResumeLayout(false);
             this.panelTable.ResumeLayout(false);
             this.panelBinary.ResumeLayout(false);
-            this.panelBinary.PerformLayout();
             this.panelTitle.ResumeLayout(false);
             this.panelTitle.PerformLayout();
             this.panelImage.ResumeLayout(false);
@@ -372,16 +311,13 @@
         private System.Windows.Forms.Panel panelTitle;
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblTitlecontent;
-        private System.Windows.Forms.RichTextBox txtBinaryPosition;
-        private System.Windows.Forms.RichTextBox txtBinaryASCII;
-        private System.Windows.Forms.RichTextBox txtBinaryData;
-        private System.Windows.Forms.Label lblBinaryColumn;
         private System.Windows.Forms.ToolStripMenuItem menuFileStart;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
         private System.Windows.Forms.Panel panelTable;
         private ListViewExtended tableData;
         public System.Windows.Forms.PictureBox imgData;
+        private HexView hexData;
     }
 }
 

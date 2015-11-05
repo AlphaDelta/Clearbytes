@@ -118,53 +118,10 @@ namespace Clearbytes
                             imgData.ImageLocation = (string)n.Data;
                             break;
                         case InformationType.Binary:
+                            hexData.ReadBytes((byte[])n.Data);
+                            break;
                         case InformationType.BinaryFile:
-                            #region Format binary data
-                            //hexData.SetBytes((byte[])n.Data);
-                            byte[] data = null;
-                            if (n.Type == InformationType.BinaryFile)
-                            {
-                                if (!File.Exists((string)n.Data)) MessageBox.Show("This file no longer exists", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                else data = File.ReadAllBytes((string)n.Data);
-                            }
-                            else data = (byte[])n.Data;
-
-                            if (data.Length > 0xFFFF) data = Encoding.ASCII.GetBytes("Data too large to display");
-
-                            int rows = (int)Math.Ceiling((data.Length < 1 ? 10 : data.Length) / 16f);
-                            StringBuilder rowsb = new StringBuilder(rows * 8);
-                            for (int i = 0; i < rows; i++)
-                                rowsb.Append(String.Format("{0:X7}0", i));
-                            txtBinaryPosition.Text = rowsb.ToString();
-
-                            StringBuilder datasb = new StringBuilder(data.Length * 3);
-                            for (int i = 0; i < data.Length; i++)
-                                if (i > 0)
-                                    datasb.Append(" " + data[i].ToString("X2"));
-                                else
-                                    datasb.Append(data[i].ToString("X2"));
-                            txtBinaryData.Text = datasb.ToString();
-
-                            //data = Encoding.Convert(Encoding.GetEncoding(1252), Encoding.Default, data);
-                            string datastr = Encoding.Default.GetString(data);
-                            StringBuilder asciisb = new StringBuilder(data.Length + rows * 2);
-                            for (int i = 0; i < data.Length; i++)
-                            {
-                                if (i != 0 && i % 16 == 0) asciisb.Append("\r\n");
-                                if (data[i] <= 0x1F ||
-                                    data[i] == 0x7F ||
-                                    data[i] == 0x81 ||
-                                    data[i] == 0x8D ||
-                                    data[i] == 0x8F ||
-                                    data[i] == 0x90 ||
-                                    data[i] == 0x9D ||
-                                    data[i] == 0xAD)
-                                    asciisb.Append('.');
-                                else
-                                    asciisb.Append((char)datastr[i]);
-                            }
-                            txtBinaryASCII.Text = asciisb.ToString();
-                            #endregion
+                            hexData.ReadFile((string)n.Data);
                             break;
                         case InformationType.Table:
                             TableInfo info = (TableInfo)n.Data;
