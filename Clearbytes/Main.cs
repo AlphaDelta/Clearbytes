@@ -102,6 +102,7 @@ namespace Clearbytes
                     SwitchPanel(InformationType.None);
                 else
                 {
+                IT_SWITCH:
                     switch (n.Type)
                     {
                         case InformationType.Title:
@@ -115,7 +116,14 @@ namespace Clearbytes
                             imgData.Image = (Image)n.Data;
                             break;
                         case InformationType.ImageFile:
+                            if (!File.Exists((string)n.Data))
+                            {
+                                n.Type = InformationType.Text;
+                                n.Data = "File is missing";
+                                goto IT_SWITCH;
+                            }
                             imgData.ImageLocation = (string)n.Data;
+                            //imgData.Image = Image.FromFile((string)n.Data); //Necessary for some GIFs to load correctly
                             break;
                         case InformationType.Binary:
                             hexData.ReadBytes((byte[])n.Data);

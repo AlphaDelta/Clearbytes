@@ -13,6 +13,10 @@ namespace Clearbytes
 
         public void SwitchPanel(InformationType type) { main.SwitchPanel(type); }
 
-        public void SetImage(Image img) { main.imgData.Image = img; }
+        public void SetImage(Image img)
+        {
+            main.imgData.Image = img;
+        }
+        public void SetText(string txt) { main.txtData.Text = txt; }
     }
 }

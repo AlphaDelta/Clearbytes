@@ -305,7 +305,6 @@
         private System.Windows.Forms.SplitContainer split;
         private TreeViewExtended treeView;
         private System.Windows.Forms.Panel panelText;
-        private System.Windows.Forms.TextBox txtData;
         private System.Windows.Forms.Panel panelImage;
         private System.Windows.Forms.Panel panelBinary;
         private System.Windows.Forms.Panel panelTitle;
@@ -318,6 +317,7 @@
         private ListViewExtended tableData;
         public System.Windows.Forms.PictureBox imgData;
         private HexView hexData;
+        public System.Windows.Forms.TextBox txtData;
     }
 }
 

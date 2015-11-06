@@ -28,6 +28,7 @@ namespace ClearbytesBridge
         void SwitchPanel(InformationType type);
 
         void SetImage(Image img);
+        void SetText(string txt);
     }
 
     public class ClearbytesModuleAttributes : Attribute

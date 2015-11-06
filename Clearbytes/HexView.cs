@@ -33,17 +33,19 @@ namespace Clearbytes
             scrollbar.Visible = true;
             scrollbar.Dock = DockStyle.Right;
 
-            scrollbar.Scroll += delegate(object sender, ScrollEventArgs e)
-            {
-                int tempoffset = (e.NewValue + RowHeight / 2) / RowHeight;
-                bool diff = (tempoffset != rowoffset);
-                rowoffset = (tempoffset < 0 ? 0 : tempoffset);
-                if (diff) this.Invalidate();
-            };
+            scrollbar.Scroll += OnScroll;
 
             this.Controls.Add(scrollbar);
 
             RecalcWrapper();
+        }
+
+        void OnScroll(object sender, ScrollEventArgs e)
+        {
+            int tempoffset = (e.NewValue + RowHeight / 2) / RowHeight;
+            bool diff = (tempoffset != rowoffset);
+            rowoffset = (tempoffset < 0 ? 0 : tempoffset);
+            if (diff) this.Invalidate();
         }
 
         protected override void OnMouseWheel(MouseEventArgs e)
@@ -234,6 +236,8 @@ namespace Clearbytes
 
             RecalcScroll();
 
+            scrollbar.Value = 0;
+            OnScroll(null, new ScrollEventArgs(ScrollEventType.EndScroll, 0));
             this.Invalidate();
         }
     }

@@ -20,6 +20,8 @@ namespace Clearbytes.Modules
             JPG_HEADER = { 0xFF, 0xD8, 0xFF },
             GIF_HEADER = { 0x47, 0x49, 0x46 };
 
+        MemoryStream ms = null;
+        Bitmap bt = null;
         public override void Search()
         {
             if (!Directory.Exists(FIREFOX_PATH)) return;
@@ -238,9 +240,11 @@ namespace Clearbytes.Modules
 
                                         byte[] bitmapbuff = new byte[metaoffset];
                                         if (fcache.Read(bitmapbuff, 0, metaoffset) != metaoffset) return;
-                                        Bitmap bt;
-                                        using (MemoryStream ms = new MemoryStream(bitmapbuff))
-                                            bt = new Bitmap(ms);
+                                        Bridge.Interface.SetImage(null);
+                                        if (ms != null) { ms.Close(); ms.Dispose(); }
+                                        if (bt != null) { bt.Dispose(); }
+                                        ms = new MemoryStream(bitmapbuff);//using (MemoryStream ms = new MemoryStream(bitmapbuff))
+                                        bt = new Bitmap(ms);
 
                                         Bridge.Interface.SetImage(bt);
                                     }
