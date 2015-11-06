@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace Clearbytes.Modules
@@ -22,8 +23,11 @@ namespace Clearbytes.Modules
 
         MemoryStream ms = null;
         Bitmap bt = null;
+        List<SearchNode> CacheDomains = new List<SearchNode>();
         public override void Search()
         {
+            CacheDomains.Clear();
+
             if (!Directory.Exists(FIREFOX_PATH)) return;
 
             string[] folders = Directory.GetDirectories(FIREFOX_PATH, "*", SearchOption.TopDirectoryOnly);
@@ -230,7 +234,28 @@ namespace Clearbytes.Modules
 
                             fcache.Seek(0, SeekOrigin.Begin);
 
-                            cachenode.AddInformation(originurl, InformationType.Delegate,
+                            SearchNode rcachenode = null;
+
+                            Match m = Regex.Match(originurl, "^:(http|https|ftp)://(.*?)/");
+                            if (m.Success && m.Groups[1].Success)
+                            {
+                                foreach (SearchNode cnode in CacheDomains)
+                                    if (cnode.Title == m.Groups[2].Value)
+                                    {
+                                        rcachenode = cnode;
+                                        break;
+                                    }
+
+                                if (rcachenode == null)
+                                {
+                                    rcachenode = cachenode.AddInformation(m.Groups[2].Value, InformationType.None, null, true);
+                                    CacheDomains.Add(rcachenode);
+                                }
+                                originurl = originurl.Replace(m.Groups[0].Value, "/");
+                            }
+                            else rcachenode = cachenode;
+
+                            rcachenode.AddInformation(originurl, InformationType.Delegate,
                                 (Action)delegate {
                                     Bridge.Interface.SwitchPanel(InformationType.Image);
 
