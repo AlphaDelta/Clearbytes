@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Clearbytes
@@ -46,6 +47,8 @@ namespace Clearbytes
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            if (!Directory.Exists("modules")) Directory.CreateDirectory("modules");
 
             Main main = new Main();
             ClearbytesBridge.Bridge.SetInterface(new CClearbytes(main));

@@ -23,6 +23,8 @@ namespace Clearbytes
 
             this.Icon = Properties.Resources.icon;
 
+            
+
             split.GotFocus += delegate { this.Focus(); };
 
             panelTitle.Visible = false;

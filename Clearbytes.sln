@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clearbytes", "Clearbytes\Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClearbytesBridge", "ClearbytesBridge\ClearbytesBridge.csproj", "{3D6FE7F2-37C6-4ABC-A384-046A77B7AECE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clearbytes.TestModule", "Clearbytes.TestModule\Clearbytes.TestModule.csproj", "{8BB8D853-8578-4C92-9468-DBFC8353A256}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{3D6FE7F2-37C6-4ABC-A384-046A77B7AECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D6FE7F2-37C6-4ABC-A384-046A77B7AECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D6FE7F2-37C6-4ABC-A384-046A77B7AECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB8D853-8578-4C92-9468-DBFC8353A256}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB8D853-8578-4C92-9468-DBFC8353A256}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB8D853-8578-4C92-9468-DBFC8353A256}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB8D853-8578-4C92-9468-DBFC8353A256}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,5 +11,11 @@ namespace ClearbytesBridge
 
         void SetImage(Image img);
         void SetText(string txt);
+        void SetBinary(byte[] arr);
+        void SetBinary(string file);
+        void SetTitle(TitleInfo info);
+        void SetTable(TableInfo info);
+
+        bool IsCanceled();
     }
 }

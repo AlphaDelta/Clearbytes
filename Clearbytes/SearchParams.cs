@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -41,6 +42,31 @@ namespace Clearbytes
                 AllAttribs.Add(attrib);
 
                 list.Items.Add(attrib.Name);
+            }
+
+            string[] files = Directory.GetFiles("modules", "*.dll");
+            foreach (string f in files)
+            {
+                Assembly asm = Assembly.LoadFrom(f);
+
+                foreach (Type t in asm.GetTypes())
+                {
+                    if (t.BaseType != typeof(ClearbytesModule))
+                        continue;
+
+                    object[] mods = t.GetCustomAttributes(typeof(ClearbytesModuleAttributes), false);
+                    if (mods.Length < 1) continue;
+
+                    ClearbytesModuleAttributes attrib = (ClearbytesModuleAttributes)mods[0];
+                    if (!attrib.Active) continue;
+
+                    AllModules.Add(t);
+                    AllAttribs.Add(attrib);
+
+                    list.Items.Add(attrib.Name);
+
+                    break;
+                }
             }
             colModules.Width = -1;
             list.EndUpdate();

@@ -36,8 +36,11 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.split = new System.Windows.Forms.SplitContainer();
+            this.treeView = new Clearbytes.TreeViewExtended();
             this.panelTable = new System.Windows.Forms.Panel();
+            this.tableData = new Clearbytes.ListViewExtended();
             this.panelBinary = new System.Windows.Forms.Panel();
+            this.hexData = new Clearbytes.HexView();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblTitlecontent = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -45,9 +48,6 @@
             this.imgData = new System.Windows.Forms.PictureBox();
             this.panelText = new System.Windows.Forms.Panel();
             this.txtData = new System.Windows.Forms.TextBox();
-            this.treeView = new Clearbytes.TreeViewExtended();
-            this.tableData = new Clearbytes.ListViewExtended();
-            this.hexData = new Clearbytes.HexView();
             this.menu.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
@@ -144,6 +144,20 @@
             this.split.TabIndex = 0;
             this.split.TabStop = false;
             // 
+            // treeView
+            // 
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(210, 377);
+            this.treeView.TabIndex = 1;
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
             // panelTable
             // 
             this.panelTable.Controls.Add(this.tableData);
@@ -152,6 +166,18 @@
             this.panelTable.Size = new System.Drawing.Size(100, 100);
             this.panelTable.TabIndex = 4;
             // 
+            // tableData
+            // 
+            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableData.FullRowSelect = true;
+            this.tableData.Location = new System.Drawing.Point(0, 0);
+            this.tableData.Name = "tableData";
+            this.tableData.Size = new System.Drawing.Size(100, 100);
+            this.tableData.TabIndex = 0;
+            this.tableData.UseCompatibleStateImageBehavior = false;
+            this.tableData.View = System.Windows.Forms.View.Details;
+            // 
             // panelBinary
             // 
             this.panelBinary.Controls.Add(this.hexData);
@@ -159,6 +185,15 @@
             this.panelBinary.Name = "panelBinary";
             this.panelBinary.Size = new System.Drawing.Size(100, 100);
             this.panelBinary.TabIndex = 2;
+            // 
+            // hexData
+            // 
+            this.hexData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hexData.Location = new System.Drawing.Point(0, 0);
+            this.hexData.Name = "hexData";
+            this.hexData.Size = new System.Drawing.Size(100, 100);
+            this.hexData.TabIndex = 0;
+            this.hexData.Text = "hexView1";
             // 
             // panelTitle
             // 
@@ -231,41 +266,6 @@
             this.txtData.Size = new System.Drawing.Size(90, 94);
             this.txtData.TabIndex = 1;
             // 
-            // treeView
-            // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 377);
-            this.treeView.TabIndex = 1;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
-            // 
-            // tableData
-            // 
-            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableData.FullRowSelect = true;
-            this.tableData.Location = new System.Drawing.Point(0, 0);
-            this.tableData.Name = "tableData";
-            this.tableData.Size = new System.Drawing.Size(100, 100);
-            this.tableData.TabIndex = 0;
-            this.tableData.UseCompatibleStateImageBehavior = false;
-            this.tableData.View = System.Windows.Forms.View.Details;
-            // 
-            // hexData
-            // 
-            this.hexData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hexData.Location = new System.Drawing.Point(0, 0);
-            this.hexData.Name = "hexData";
-            this.hexData.Size = new System.Drawing.Size(100, 100);
-            this.hexData.TabIndex = 0;
-            this.hexData.Text = "hexView1";
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,16 +308,16 @@
         private System.Windows.Forms.Panel panelImage;
         private System.Windows.Forms.Panel panelBinary;
         private System.Windows.Forms.Panel panelTitle;
-        private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label lblTitlecontent;
         private System.Windows.Forms.ToolStripMenuItem menuFileStart;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem menuFileExit;
         private System.Windows.Forms.Panel panelTable;
-        private ListViewExtended tableData;
-        public System.Windows.Forms.PictureBox imgData;
-        private HexView hexData;
-        public System.Windows.Forms.TextBox txtData;
+        internal System.Windows.Forms.Label lblTitle;
+        internal System.Windows.Forms.Label lblTitlecontent;
+        internal System.Windows.Forms.PictureBox imgData;
+        internal HexView hexData;
+        internal System.Windows.Forms.TextBox txtData;
+        internal ListViewExtended tableData;
     }
 }
 
