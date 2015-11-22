@@ -245,7 +245,12 @@ namespace Clearbytes
                     instance.SetParent(node);
                     instance.SetParentTreeView(treeView);
 
-                    instance.Search();
+                    try { instance.Search(); }
+                    catch (Exception ex)
+                    {
+                        node.Text += " (ERROR)";
+                        sp.Attribs[i].Description = ex.ToString();
+                    }
 
                     if(WinAPI.ISABOVEVISTA)
                         WinAPI.Taskbar.SetProgressValue(mainhandle, progress, taskbarcount);
