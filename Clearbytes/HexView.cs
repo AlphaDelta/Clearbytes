@@ -125,7 +125,7 @@ namespace Clearbytes
         const int TEMPHEX_BUFFER = COLUMNS * 3;
         StringBuilder temphex = new StringBuilder(TEMPHEX_BUFFER);
         StringBuilder tempascii = new StringBuilder(COLUMNS);
-        static Encoding ANSI = Encoding.GetEncoding("Windows-1252");
+        public static Encoding ANSI = Encoding.GetEncoding("Windows-1252");
         public Encoding Encoding = ANSI;
         protected override void OnPaint(PaintEventArgs e)
         {

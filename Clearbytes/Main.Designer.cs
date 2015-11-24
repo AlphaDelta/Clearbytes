@@ -31,16 +31,14 @@
             this.menu = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuFileDump = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.split = new System.Windows.Forms.SplitContainer();
-            this.treeView = new Clearbytes.TreeViewExtended();
             this.panelTable = new System.Windows.Forms.Panel();
-            this.tableData = new Clearbytes.ListViewExtended();
             this.panelBinary = new System.Windows.Forms.Panel();
-            this.hexData = new Clearbytes.HexView();
             this.panelTitle = new System.Windows.Forms.Panel();
             this.lblTitlecontent = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
@@ -48,6 +46,14 @@
             this.imgData = new System.Windows.Forms.PictureBox();
             this.panelText = new System.Windows.Forms.Panel();
             this.txtData = new System.Windows.Forms.TextBox();
+            this.dumpmenu = new System.Windows.Forms.MenuStrip();
+            this.dumpmenuCancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpmenuUncheck = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpmenuCheck = new System.Windows.Forms.ToolStripMenuItem();
+            this.dumpmenuDump = new System.Windows.Forms.ToolStripMenuItem();
+            this.treeView = new Clearbytes.TreeViewExtended();
+            this.tableData = new Clearbytes.ListViewExtended();
+            this.hexData = new Clearbytes.HexView();
             this.menu.SuspendLayout();
             this.split.Panel1.SuspendLayout();
             this.split.Panel2.SuspendLayout();
@@ -58,6 +64,7 @@
             this.panelImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).BeginInit();
             this.panelText.SuspendLayout();
+            this.dumpmenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // menu
@@ -65,7 +72,7 @@
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
             this.menuHelp});
-            this.menu.Location = new System.Drawing.Point(0, 0);
+            this.menu.Location = new System.Drawing.Point(0, 24);
             this.menu.Name = "menu";
             this.menu.Size = new System.Drawing.Size(863, 24);
             this.menu.TabIndex = 0;
@@ -75,6 +82,7 @@
             // 
             this.menuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFileStart,
+            this.menuFileDump,
             this.toolStripSeparator1,
             this.menuFileExit});
             this.menuFile.Name = "menuFile";
@@ -84,19 +92,27 @@
             // menuFileStart
             // 
             this.menuFileStart.Name = "menuFileStart";
-            this.menuFileStart.Size = new System.Drawing.Size(135, 22);
+            this.menuFileStart.Size = new System.Drawing.Size(144, 22);
             this.menuFileStart.Text = "Start search";
             this.menuFileStart.Click += new System.EventHandler(this.menuFileStart_Click);
+            // 
+            // menuFileDump
+            // 
+            this.menuFileDump.Enabled = false;
+            this.menuFileDump.Name = "menuFileDump";
+            this.menuFileDump.Size = new System.Drawing.Size(144, 22);
+            this.menuFileDump.Text = "Dump results";
+            this.menuFileDump.Click += new System.EventHandler(this.menuFileDump_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(141, 6);
             // 
             // menuFileExit
             // 
             this.menuFileExit.Name = "menuFileExit";
-            this.menuFileExit.Size = new System.Drawing.Size(135, 22);
+            this.menuFileExit.Size = new System.Drawing.Size(144, 22);
             this.menuFileExit.Text = "Exit";
             this.menuFileExit.Click += new System.EventHandler(this.menuFileExit_Click);
             // 
@@ -144,20 +160,6 @@
             this.split.TabIndex = 0;
             this.split.TabStop = false;
             // 
-            // treeView
-            // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeView.FullRowSelect = true;
-            this.treeView.HideSelection = false;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(210, 377);
-            this.treeView.TabIndex = 1;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
-            // 
             // panelTable
             // 
             this.panelTable.Controls.Add(this.tableData);
@@ -166,18 +168,6 @@
             this.panelTable.Size = new System.Drawing.Size(100, 100);
             this.panelTable.TabIndex = 4;
             // 
-            // tableData
-            // 
-            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableData.FullRowSelect = true;
-            this.tableData.Location = new System.Drawing.Point(0, 0);
-            this.tableData.Name = "tableData";
-            this.tableData.Size = new System.Drawing.Size(100, 100);
-            this.tableData.TabIndex = 0;
-            this.tableData.UseCompatibleStateImageBehavior = false;
-            this.tableData.View = System.Windows.Forms.View.Details;
-            // 
             // panelBinary
             // 
             this.panelBinary.Controls.Add(this.hexData);
@@ -185,15 +175,6 @@
             this.panelBinary.Name = "panelBinary";
             this.panelBinary.Size = new System.Drawing.Size(100, 100);
             this.panelBinary.TabIndex = 2;
-            // 
-            // hexData
-            // 
-            this.hexData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.hexData.Location = new System.Drawing.Point(0, 0);
-            this.hexData.Name = "hexData";
-            this.hexData.Size = new System.Drawing.Size(100, 100);
-            this.hexData.TabIndex = 0;
-            this.hexData.Text = "hexView1";
             // 
             // panelTitle
             // 
@@ -266,6 +247,84 @@
             this.txtData.Size = new System.Drawing.Size(90, 94);
             this.txtData.TabIndex = 1;
             // 
+            // dumpmenu
+            // 
+            this.dumpmenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dumpmenuCancel,
+            this.dumpmenuUncheck,
+            this.dumpmenuCheck,
+            this.dumpmenuDump});
+            this.dumpmenu.Location = new System.Drawing.Point(0, 0);
+            this.dumpmenu.Name = "dumpmenu";
+            this.dumpmenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dumpmenu.Size = new System.Drawing.Size(863, 24);
+            this.dumpmenu.TabIndex = 1;
+            this.dumpmenu.Text = "dumpmenu";
+            this.dumpmenu.Visible = false;
+            // 
+            // dumpmenuCancel
+            // 
+            this.dumpmenuCancel.Name = "dumpmenuCancel";
+            this.dumpmenuCancel.Size = new System.Drawing.Size(55, 20);
+            this.dumpmenuCancel.Text = "Cancel";
+            this.dumpmenuCancel.Click += new System.EventHandler(this.dumpmenuCancel_Click);
+            // 
+            // dumpmenuUncheck
+            // 
+            this.dumpmenuUncheck.Name = "dumpmenuUncheck";
+            this.dumpmenuUncheck.Size = new System.Drawing.Size(80, 20);
+            this.dumpmenuUncheck.Text = "Uncheck all";
+            this.dumpmenuUncheck.Click += new System.EventHandler(this.dumpmenuUncheck_Click);
+            // 
+            // dumpmenuCheck
+            // 
+            this.dumpmenuCheck.Name = "dumpmenuCheck";
+            this.dumpmenuCheck.Size = new System.Drawing.Size(67, 20);
+            this.dumpmenuCheck.Text = "Check all";
+            this.dumpmenuCheck.Click += new System.EventHandler(this.dumpmenuCheck_Click);
+            // 
+            // dumpmenuDump
+            // 
+            this.dumpmenuDump.Name = "dumpmenuDump";
+            this.dumpmenuDump.Size = new System.Drawing.Size(52, 20);
+            this.dumpmenuDump.Text = "Dump";
+            this.dumpmenuDump.Click += new System.EventHandler(this.dumpmenuDump_Click);
+            // 
+            // treeView
+            // 
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeView.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.treeView.FullRowSelect = true;
+            this.treeView.HideSelection = false;
+            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(210, 377);
+            this.treeView.TabIndex = 1;
+            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            // 
+            // tableData
+            // 
+            this.tableData.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tableData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableData.FullRowSelect = true;
+            this.tableData.Location = new System.Drawing.Point(0, 0);
+            this.tableData.Name = "tableData";
+            this.tableData.Size = new System.Drawing.Size(100, 100);
+            this.tableData.TabIndex = 0;
+            this.tableData.UseCompatibleStateImageBehavior = false;
+            this.tableData.View = System.Windows.Forms.View.Details;
+            // 
+            // hexData
+            // 
+            this.hexData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.hexData.Location = new System.Drawing.Point(0, 0);
+            this.hexData.Name = "hexData";
+            this.hexData.Size = new System.Drawing.Size(100, 100);
+            this.hexData.TabIndex = 0;
+            this.hexData.Text = "hexView1";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -273,6 +332,7 @@
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(863, 402);
             this.Controls.Add(this.menu);
+            this.Controls.Add(this.dumpmenu);
             this.Controls.Add(this.split);
             this.MainMenuStrip = this.menu;
             this.Name = "Main";
@@ -291,6 +351,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgData)).EndInit();
             this.panelText.ResumeLayout(false);
             this.panelText.PerformLayout();
+            this.dumpmenu.ResumeLayout(false);
+            this.dumpmenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -318,6 +380,12 @@
         internal HexView hexData;
         internal System.Windows.Forms.TextBox txtData;
         internal ListViewExtended tableData;
+        private System.Windows.Forms.ToolStripMenuItem menuFileDump;
+        private System.Windows.Forms.MenuStrip dumpmenu;
+        private System.Windows.Forms.ToolStripMenuItem dumpmenuCancel;
+        private System.Windows.Forms.ToolStripMenuItem dumpmenuUncheck;
+        private System.Windows.Forms.ToolStripMenuItem dumpmenuCheck;
+        private System.Windows.Forms.ToolStripMenuItem dumpmenuDump;
     }
 }
 
