@@ -10,6 +10,7 @@ using ClearbytesBridge;
 using System.Threading;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 
 namespace Clearbytes
 {
@@ -524,7 +525,6 @@ namespace Clearbytes
 
                             string ext = Path.GetExtension(path);
 
-
                             while (File.Exists(file + ext))
                             {
                                 file += "~";
@@ -539,10 +539,27 @@ namespace Clearbytes
                         case InformationType.Image:
                             Image img = (Image)data;
 
-                            file += ".png";
-                            loc += ".png";
+                            ImageFormat format = ImageFormat.Png;
+                            string iext = Path.GetExtension(safename);
 
-                            img.Save(file, System.Drawing.Imaging.ImageFormat.Png);
+                            switch (iext)
+                            {
+                                case ".jpeg":
+                                case ".jpg":
+                                    format = ImageFormat.Jpeg;
+                                    break;
+                                case ".gif":
+                                    format = ImageFormat.Gif;
+                                    break;
+                                case ".png":
+                                    break;
+                                default:
+                                    file += ".png";
+                                    loc += ".png";
+                                    break;
+                            }
+
+                            img.Save(file, format);
                             break;
                         case InformationType.Table:
                             file += ".html";
