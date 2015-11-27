@@ -93,7 +93,7 @@ namespace Clearbytes.Modules
                     TableInfo tinfo = new TableInfo(new string[] { "ID", "chain_index", "url" }, items.ToArray());
                     node.AddInformation("Download url chains", InformationType.Table, tinfo);
                 }
-
+                
                 /* Web data */
                 //TODO: Use autofill_profiles to build a table of information rather than having it fragmented as it currenty is
                 string webdb = folder + @"\Web Data";

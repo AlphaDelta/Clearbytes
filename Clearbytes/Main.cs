@@ -256,8 +256,11 @@ namespace Clearbytes
                     try { instance.Search(); }
                     catch (Exception ex)
                     {
-                        node.Text += " (ERROR)";
-                        sp.Attribs[i].Description = ex.ToString();
+                        this.Invoke((Async.Action)delegate
+                        {
+                            node.Text += " (ERROR)";
+                            sp.Attribs[i].Description = ex.ToString();
+                        });
                     }
 
                     if(WinAPI.ISABOVEVISTA)
