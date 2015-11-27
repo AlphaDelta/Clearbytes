@@ -34,8 +34,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>img\fileicon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,6 +129,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="img\fileicon.ico" />
     <Content Include="img\icon.ico" />
     <Content Include="img\icon128-a.png" />
     <Content Include="SQLite.Interop.dll">
