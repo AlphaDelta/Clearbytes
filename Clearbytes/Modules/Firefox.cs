@@ -220,13 +220,15 @@ namespace Clearbytes.Modules
                             if (fcache.Read(intbuff, 0, 4) != 4) continue;
                             Program.SwapEndianness32(ref intbuff);
                             int metaversion = BitConverter.ToInt32(intbuff, 0);
-                            if (metaversion != 1) continue;
+                            if (metaversion > 2) continue;
 
                             fcache.Seek(0x14, SeekOrigin.Current);
                             if (fcache.Read(intbuff, 0, 4) != 4) continue;
                             Program.SwapEndianness32(ref intbuff);
                             int metaurllen = BitConverter.ToInt32(intbuff, 0);
                             if (metaurllen < 1) continue;
+
+                            if (metaversion == 2) fcache.Seek(0x04, SeekOrigin.Current);
 
                             byte[] asciibuff = new byte[metaurllen];
                             if (fcache.Read(asciibuff, 0, metaurllen) != metaurllen) continue;

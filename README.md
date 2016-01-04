@@ -2,7 +2,7 @@
 
 ## Overview
 
-Clearbytes is a data-forensic for Windows to provide an overview of identifying data from programs such as Google Chrome, Firefox, Skype, uTorrent, and the Windows Explorer thumbcache.
+Clearbytes is a data-forensic tool for Windows to provide an overview of identifying data from programs such as Google Chrome, Firefox, Skype, uTorrent, and the Windows Explorer thumbcache.
 
 ## Features
 
