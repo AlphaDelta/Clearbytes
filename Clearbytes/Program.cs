@@ -69,7 +69,7 @@ namespace Clearbytes
 
                 if ((long)FormatUnixTimestamp(DateTime.UtcNow) - time < TEMP_DIR_TIMEOUT) continue;
 
-                Directory.Delete(dir);
+                Directory.Delete(dir, true);
 
                 string arch = Archives + name + ".zip";
                 if (File.Exists(arch)) File.Delete(arch);
